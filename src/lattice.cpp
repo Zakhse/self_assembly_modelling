@@ -24,9 +24,11 @@ void Lattice::fill_with_particles() {
 Lattice::~Lattice() {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-
+            delete lattice[i][j];
         }
+        delete[] lattice[i];
     }
+    delete[] lattice;
 }
 //{
 //    file = new std::ifstream;
