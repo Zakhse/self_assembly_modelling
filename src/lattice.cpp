@@ -1,9 +1,14 @@
+#include <iostream>
 #include "lattice.h"
+
+std::random_device Lattice::rd; // NOLINT(cert-err58-cpp)
 
 Lattice::Lattice(int size, int particle_length) {
     this->size = size;
     this->particle_length = particle_length;
+    this->lattice = nullptr;
 
+    init_random();
     generate_lattice();
     fill_with_particles();
 }
@@ -30,9 +35,11 @@ Lattice::~Lattice() {
     }
     delete[] lattice;
 }
-//{
-//    file = new std::ifstream;
-//    file->open(path, std::ios_base::in);
-//    buffer = "";
-//    finished = false;
-//}
+
+void Lattice::init_random() {
+    rng = MyRng(rd());
+}
+
+bool Lattice::random_bool() {
+    return bool_rng(rng);
+}
