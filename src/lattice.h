@@ -1,8 +1,10 @@
 #ifndef SELF_ASSEMBLY_MODELLING_LATTICE_H
 #define SELF_ASSEMBLY_MODELLING_LATTICE_H
 
+#include <memory>
 #include "particle.h"
 #include "./utils/randomizer_with_sentinel_shift.h"
+#include "./utils/utils.h"
 
 typedef std::mt19937 MyRng;
 typedef RandomizerWithSentinelShift<uint32_t, MyRng> MyBoolRng;
@@ -13,12 +15,16 @@ public:
 
     ~Lattice();
 
+    void print();
+
 private:
     int size;
 
     int particle_length;
 
-    Particle ***lattice;
+    std::shared_ptr<Particle> ***lattice = nullptr;
+
+    void clear_lattice();
 
     MyRng rng;
 
